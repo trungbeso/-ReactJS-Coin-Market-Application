@@ -3,10 +3,10 @@ import React from 'react'
 import {Button} from "@/components/ui/button"
 import {ActivityLogIcon, DashboardIcon, ExitIcon, HomeIcon, PersonIcon} from "@radix-ui/react-icons";
 import {BookmarkIcon, CreditCardIcon, LandmarkIcon, WalletIcon} from "lucide-react";
-import {useNavigation} from "react-router-dom";
 import {
     SheetClose,
 } from "../../components/ui/sheet"
+import {useNavigate} from "react-router-dom";
 
 
 const menu = [
@@ -23,18 +23,18 @@ const menu = [
 ]
 
 const Sidebar = () => {
-    // const navigation = useNavigation();
-    // const dispatch = useDispatch();
-    // const handleLogout = () => {
-    //     dispatch(logout());
-    // };
+    const navigate = useNavigate();
+
 
     return (
-        <div className="mt-10 space-y-5">
+        <div className="mt-10 space-y-5 transform transition-all duration-300 ease-linear">
             {menu.map((item) => (
                 <div key={item.name}>
                     <SheetClose className="w-full ">
-                        <Button variant="outline" className="flex items-center gap-5 py-6 w-full hover:bg-gray-400">
+                        <Button
+                            onClick={() => navigate(item.path)}
+                            variant="outline"
+                            className="flex items-center gap-5 py-6 w-full hover:bg-gray-400">
                             <span className="w-8">{item.icon}</span>
                             <p>{item.name}</p>
                         </Button>

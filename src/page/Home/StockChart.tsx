@@ -1,4 +1,4 @@
-import Chart from 'react-apexcharts'
+
 import React, {useState} from "react";
 import ReactApexChart from 'react-apexcharts';
 import { Button } from '@/components/ui/button';
@@ -112,7 +112,7 @@ const StockChart = () => {
 
             </div>
             <div id="chart-timelines">
-                <ReactApexChart options={options} series={series} type='area' height={450}/>
+                <ReactApexChart options={options} series={series} type='area' height={550}/>
             </div>
         </div>
 
