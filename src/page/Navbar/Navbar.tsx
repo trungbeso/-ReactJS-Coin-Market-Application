@@ -8,14 +8,24 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
-import { Button } from '@/components/ui/button';
+import {Button} from '@/components/ui/button';
 import {DragHandleHorizontalIcon, MagnifyingGlassIcon} from "@radix-ui/react-icons";
-
+import {Moon, Sun} from "lucide-react"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {useTheme} from "@/components/theme-provider"
 
 
 const Navbar = () => {
+    const {setTheme} = useTheme()
+
     return (
-        <div className="px-2 text-white py-1 border-b z-50 bg-black bg-opacity-0 sticky top-0 left-0 right-0 flex justify-between items-center">
+        <div
+            className="px-2 text-white py-1 border-b z-50 bg-black bg-opacity-0 sticky top-0 left-0 right-0 flex justify-between items-center">
             <div className="flex items-center gap-3">
                 <Sheet>
                     <SheetTrigger>
@@ -23,8 +33,9 @@ const Navbar = () => {
                             <DragHandleHorizontalIcon className="h-7 w-7"/>
                         </Button>
                     </SheetTrigger>
-                    <SheetContent side="left" className="bg-gray-900 text-white w-75 border-r-0 flex flex-col justify-center">
-                        <SheetHeader className={undefined}>
+                    <SheetContent side="left"
+                                  className="bg-gray-900 text-white w-75 border-r-0 flex flex-col justify-center">
+                        <SheetHeader>
                             <SheetTitle>
                                 <div className="text-3xl flex justify-center items-center gap-1">
                                     <Avatar>
@@ -51,6 +62,7 @@ const Navbar = () => {
                     </Button>
                 </div>
             </div>
+
             <div>
                 <Avatar>
                     <AvatarFallback>T </AvatarFallback>

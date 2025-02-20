@@ -9,7 +9,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {Avatar, AvatarImage} from "@radix-ui/react-avatar";
+import {Avatar, AvatarImage} from "@/components/ui/avatar";
 
 
 const AssetTable = () => {
