@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button} from "../../components/ui/button"
+import {Button} from "@/components/ui/button"
 import {ActivityLogIcon, DashboardIcon, ExitIcon, HomeIcon, PersonIcon} from "@radix-ui/react-icons";
 import {BookmarkIcon, CreditCardIcon, LandmarkIcon, WalletIcon} from "lucide-react";
 import {useNavigation} from "react-router-dom";

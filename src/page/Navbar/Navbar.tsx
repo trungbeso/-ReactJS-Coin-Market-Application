@@ -6,9 +6,9 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "../../components/ui/sheet"
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx"
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/sheet";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
+import { Button } from '@/components/ui/button';
 import {DragHandleHorizontalIcon, MagnifyingGlassIcon} from "@radix-ui/react-icons";
 
 
