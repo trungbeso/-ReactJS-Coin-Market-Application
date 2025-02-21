@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {
     Table,
@@ -10,9 +10,12 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
+import {useNavigate} from "react-router-dom";
 
 
 const AssetTable = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <Table>
@@ -27,10 +30,11 @@ const AssetTable = () => {
                         <TableHead className="text-right">PRICE</TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody className="p-2 *:hover:bg-slate-900">
                     {[1,1,1,1,1,1,1,1,1].map((index) => (<TableRow key={index}>
-                        <TableCell className="font-medium flex items-center gap-2">
-                            <Avatar className="-z-50">
+                        <TableCell onClick={() => navigate(`/market/bitcoin`)}
+                            className="font-medium flex items-center gap-2 cursor-pointer">
+                            <Avatar className="">
                                 <AvatarImage src="https://s2.coinmarketcap.com/static/img/coins/200x200/5994.png"
                                 />
                             </Avatar>
