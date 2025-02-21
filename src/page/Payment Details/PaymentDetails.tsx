@@ -22,7 +22,7 @@ const PaymentDetails = () => {
     return (
         <div className="px-20">
             <h1 className="text-3xl font-bold py-10">Payment Details</h1>
-            {true ? <Card>
+            {!true ? (<Card>
                 <CardHeader>
                     <CardTitle>
                         Vp Bank
@@ -41,7 +41,7 @@ const PaymentDetails = () => {
                         </div>
                     </CardContent>
                 </CardHeader>
-            </Card>:   <Dialog>
+            </Card>):   (<Dialog>
                 <DialogTrigger>
                     <Button className="mt-4 py-6 hover:bg-white hover:text-black border cursor-pointer">
                         Add Payment Details
@@ -53,7 +53,7 @@ const PaymentDetails = () => {
                     </DialogHeader>
                     <PaymentDetailForm/>
                 </DialogContent>
-            </Dialog>}
+            </Dialog>)}
 
 
 
