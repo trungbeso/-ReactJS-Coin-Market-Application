@@ -8,9 +8,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {Button} from "@/components/ui/button"
 
-import {BookmarkFilledIcon} from "@radix-ui/react-icons";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 
 const Activity = () => {

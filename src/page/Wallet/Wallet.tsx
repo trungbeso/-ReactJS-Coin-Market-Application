@@ -18,7 +18,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import TopUpForm from "./TopUpForm.jsx";
-import WithdrawalForm from "../Withdrawal/WithdrawalForm";
+import WithdrawalForm from "./WithdrawalForm";
 import TransferForm from "./TransferForm";
 import {Avatar, AvatarFallback} from "@radix-ui/react-avatar";
 
