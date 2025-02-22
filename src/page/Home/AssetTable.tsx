@@ -31,7 +31,7 @@ const AssetTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody className="p-2 *:hover:bg-slate-900">
-                    {[1,1,1,1,1,1,1,1,1].map((index) => (<TableRow key={index}>
+                    {[1,12,13,14,11,15,16,17,19].map((index) => (<TableRow key={index}>
                         <TableCell onClick={() => navigate(`/market/bitcoin`)}
                             className="font-medium flex items-center gap-2 cursor-pointer">
                             <Avatar className="">

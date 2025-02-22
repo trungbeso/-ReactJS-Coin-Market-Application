@@ -19,9 +19,12 @@ import {
 import {Badge} from "@/components/ui/badge"
 import {VerifiedIcon} from "lucide-react";
 import AccountVerificationForm from "./AccountVerificationForm";
+import {useSelector} from "react-redux";
 
 
 const Profile = () => {
+    const {auth} = useSelector(store => store);
+
     const handleTwoStepVerification= () => {
         console.log("hello")
     };
@@ -37,12 +40,13 @@ const Profile = () => {
                             <div className="space-y-7">
                                 <div className="flex">
                                     <p className="w-[9rem]">Email: </p>
-                                    <p className="text-gray-500">Trungbeso Inc.</p>
+                                    {/*if user not null then do ... */}
+                                    <p className="text-gray-500">{auth.user?.email}</p>
                                 </div>
 
                                 <div className="flex">
                                     <p className="w-[9rem]">Full Name: </p>
-                                    <p className="text-gray-500">Trungbeso Inc.</p>
+                                    <p className="text-gray-500">{auth.user?.fullName}</p>
                                 </div>
 
                                 <div className="flex">
@@ -59,17 +63,17 @@ const Profile = () => {
                             <div className="space-y-7">
                                 <div className="flex">
                                     <p className="w-[9rem]">Email: </p>
-                                    <p className="text-gray-500">Trungbeso Inc.</p>
+                                    <p className="text-gray-500">{auth.user?.email}</p>
                                 </div>
 
                                 <div className="flex">
                                     <p className="w-[9rem]">Full Name: </p>
-                                    <p className="text-gray-500">Trungbeso Inc.</p>
+                                    <p className="text-gray-500">{auth.user?.fullName}</p>
                                 </div>
 
                                 <div className="flex">
                                     <p className="w-[9rem]">Date of Birth: </p>
-                                    <p className="text-gray-500">Trungbeso Inc.</p>
+                                    <p className="text-gray-500">31/2/1993</p>
                                 </div>
 
                                 <div className="flex">

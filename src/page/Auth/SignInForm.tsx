@@ -3,8 +3,13 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Form, FormField,FormItem,FormLabel,FormMessage,FormControl,FormDescription} from '@/components/ui/form';
 import {useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {login} from "@/State/Auth/Action";
+import {useNavigate} from "react-router-dom";
 
 const SignIpForm = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const form = useForm({
         resolver: "",
         defaultValues: {
@@ -14,6 +19,7 @@ const SignIpForm = () => {
     })
 
     const onSubmit = (data) => {
+        dispatch(login({data, navigate}))
         console.log(data)
     }
 
