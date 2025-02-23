@@ -3,11 +3,14 @@ import { Input } from '@/components/ui/input';
 import {BanknoteIcon} from "lucide-react";
 import { Button } from '@/components/ui/button';
 import {DialogClose} from "@radix-ui/react-dialog";
+import {useDispatch, useSelector} from "react-redux";
 
 const WithdrawalForm = () => {
 
-    const [paymentMethod, setPaymentMethod] = React.useState('RAZORPAY')
+    const [paymentMethod, setPaymentMethod] = React.useState('')
     const [amount, setAmount] = React.useState("");
+    const dispatch = useDispatch();
+    const {wallet} = useSelector(store=>store);
 
     const handleChange = (e) => {
         setAmount(e.target.value);
