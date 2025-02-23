@@ -1,14 +1,15 @@
 import React from 'react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
-import {Form, FormField,FormItem,FormLabel,FormMessage,FormControl,FormDescription} from '@/components/ui/form';
+import {Form, FormField, FormItem, FormControl, FormMessage} from '@/components/ui/form';
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {register} from "@/State/Auth/Action";
-
+import {useNavigate} from "react-router-dom";
 
 const SignUpForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const form = useForm({
         resolver: "",
@@ -20,13 +21,13 @@ const SignUpForm = () => {
     })
 
     const onSubmit = (data) => {
-        dispatch(register(data))
+        dispatch(register({...data, navigate}))
         console.log(data)
     }
 
     return (
         <div>
-            <h1  className=" text-xl font-bold text-center pb-3">Create New Account</h1>
+            <h1 className=" text-xl font-bold text-center pb-3">Create New Account</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
                     <FormField
@@ -78,13 +79,9 @@ const SignUpForm = () => {
                             </FormItem>
                         )}
                     />
-
                     <Button type="submit" className="shadow-md shadow-amber-500 w-full py-6 mt-2 hover:bg-amber-600 bg-amber-500 text-black hover:text-white border-0 active:bg-slate-200 cursor-pointer text-lg">
                         Submit
                     </Button>
-
-
-
                 </form>
 
             </Form>

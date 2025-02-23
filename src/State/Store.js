@@ -3,11 +3,13 @@ import {thunk} from "redux-thunk";
 import authReducer from "@/State/Auth/Reducer.js";
 import coinReducer from "@/State/Coin/Reducer.js";
 import walletReducer from "@/State/Wallet/Reducer.js";
+import withdrawalReducer from "@/State/Withdrawal/Reducer.js";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     coin: coinReducer,
     wallet: walletReducer,
+    withdrawal: withdrawalReducer,
 });
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
