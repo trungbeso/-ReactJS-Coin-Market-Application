@@ -1,18 +1,40 @@
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
 import {Button} from "@/components/ui/button"
-import React from "react";
+import React, {useEffect} from "react";
 import AssetTable from "./AssetTable";
 import StockChart from "./StockChart";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import { DotIcon, MessageCircle} from "lucide-react";
 import {Cross1Icon} from "@radix-ui/react-icons";
-
 import { Input } from "@/components/ui/input"
+import {useDispatch, useSelector} from "react-redux";
+import {getCoinList} from "@/State/Coin/Action.js"
+import {getTop50CoinList} from "@/State/Coin/Action.js"
+
 
 
 const Home = () => {
     const [category, setCategory] = React.useState("all");
     const [inputValue, setInputValue] = React.useState("");
     const [isBotReleased, setIsBotReleased] = React.useState(false);
+    const {coin} = useSelector(store => store);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCoinList(1))
+    }, [])
+
+    useEffect(() => {
+        dispatch(getTop50CoinList())
+    }, [category])
 
 
     const handleCategory = (value) => {
@@ -38,10 +60,12 @@ const Home = () => {
     return (
         <div className="relative">
             <div className="lg:flex ">
-                <div className="lg:w-1/2 lg:border-b">
+                <div className="lg:w-1/2">
                     <div
-                        className="p-3 flex items-center gap-4  *:hover:bg-white *:hover:text-black *:selection:bg-white">
-                        <Button onClick={() => handleCategory("all")} className="rounded-full"
+                        className="p-3 flex items-center gap-4 ">
+                        <Button onClick={() => handleCategory("all")} className="rounded-full
+
+                        "
                                 variant={category == "all" ? "default" : "outline"}>All</Button>
                         <Button onClick={() => handleCategory("top50")} className="rounded-full"
                                 variant={category == "top50" ? "default" : "outline"}>Top 50</Button>
@@ -50,10 +74,29 @@ const Home = () => {
                         <Button onClick={() => handleCategory("topLosers")} className="rounded-full"
                                 variant={category == "topLosers" ? "default" : "outline"}>Top Losers</Button>
                     </div>
-                    <AssetTable/>
+                    <AssetTable coin={category == "all" ? coin.coinList : coin.top50} category={category}/>
+                    <div>
+                        <Pagination>
+                            <PaginationContent>
+                                <PaginationItem>
+                                    <PaginationPrevious href="#"/>
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationLink href="#">1</PaginationLink>
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationEllipsis/>
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationNext href="#"/>
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+
+                    </div>
                 </div>
                 <div className="hidden lg:block lg:w-1/2">
-                    <StockChart/>
+                    <StockChart coinId={"bitcoin"}/>
                     <div className="flex gap-3 items-center py-7 pl-4">
                         <div>
                             <Avatar>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import {BookmarkIcon, DotIcon} from "lucide-react";
 import {Button} from "@/components/ui/button"
@@ -11,32 +11,44 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import TreadingForm from "./TreadingForm";
+import TradingForm from "./TradingForm";
 import StockChart from "../Home/StockChart";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import { fetchCoinDetails } from "@/State/Coin/Action"
 
 const StockDetails = () => {
+
+    const {coin} = useSelector(store => store);
+    const dispatch = useDispatch();
+    const {id} = useParams();
+
+    useEffect(() => {
+        dispatch(fetchCoinDetails({coinId: id, jwt: localStorage.getItem("jwt")}));
+    },[id])
+
     return (
         <div className="py-5 mt-5">
             <div className="flex justify-between">
-                <div className="flex gap-5 items-center">
+                <div className="flex gap-5 items-center pl-3">
                     <div>
                         <Avatar>
                             <AvatarImage
-                                src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"}
-                                width={50} height={50}/>
+                                src={coin.coinDetails?.image.large}
+                               />
                         </Avatar>
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
-                            <p>DOGE</p>
+                            <p>{coin.coinDetails?.symbol.toUpperCase()}</p>
                             <DotIcon className="text-gray-400"/>
-                            <p className="text-gray-400">Doge</p>
+                            <p className="text-gray-400">{coin.coinDetails?.name}</p>
                         </div>
                         <div className="flex items-center gap-2">
-                            <p className="text-xl font-bold">$5555</p>
+                            <p className="text-xl font-bold">${coin.coinDetails?.market_data.current_price.usd}</p>
                             <p className="text-red-400">
-                                <span>-123123123213</span>
-                                <span>(-0.12321%)</span>
+                                <span>{coin.coinDetails?.market_data.market_cap_change_24h}</span>
+                                <span>({coin.coinDetails?.market_data.market_cap_change_percentage_24h}%)</span>
                             </p>
                         </div>
                     </div>
@@ -56,7 +68,7 @@ const StockDetails = () => {
                             <DialogHeader>
                                 <DialogTitle>How Much Do you want to spend?</DialogTitle>
                             </DialogHeader>
-                            <TreadingForm/>
+                            <TradingForm/>
 
                         </DialogContent>
                     </Dialog>
@@ -65,7 +77,7 @@ const StockDetails = () => {
                 </div>
             </div>
             <div className="mt-5">
-                <StockChart />
+                <StockChart coinId={id}/>
             </div>
 
 

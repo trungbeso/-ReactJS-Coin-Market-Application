@@ -9,16 +9,15 @@ import {
     REGISTER_REQUEST,
     REGISTER_SUCCESS
 } from "@/State/Auth/ActionType.js";
+import {API_BASE_URL} from "@/config/api.js";
 
 
 export const register = (userData) => async (dispatch) => {
 
     dispatch({type: REGISTER_REQUEST})
 
-    const baseUrl = "http://localhost:5454/api/v1";
-
     try {
-        const response = await axios.post(`${baseUrl}/auth/signup`, userData);
+        const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
         const user = response.data;
         console.log(user)
 
@@ -35,10 +34,8 @@ export const login = (userData) => async (dispatch) => {
 
     dispatch({type: LOGIN_REQUEST})
 
-    const baseUrl = "http://localhost:5454/api/v1";
-
     try {
-        const response = await axios.post(`${baseUrl}/auth/login`, userData.data);
+        const response = await axios.post(`${API_BASE_URL}/auth/login`, userData.data);
         const user = response.data;
         console.log(user)
 
@@ -57,10 +54,9 @@ export const getUser = (jwt) => async (dispatch) => {
 
     dispatch({type: GET_USER_REQUEST})
 
-    const baseUrl = "http://localhost:5454/api/v1";
 
     try {
-        const response = await axios.get(`${baseUrl}/users/profile`,{
+        const response = await axios.get(`${API_BASE_URL}/users/profile`,{
             headers: {
                 Authorization: `Bearer ${jwt}`
             }

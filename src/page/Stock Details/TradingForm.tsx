@@ -5,7 +5,7 @@ import {DotIcon} from "lucide-react";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 
 
-const TreadingForm = () => {
+const TradingForm = () => {
     const [orderType, setOrderType] = useState("BUY");
 
     const handleChange = () => {
@@ -83,4 +83,4 @@ const TreadingForm = () => {
     );
 };
 
-export default TreadingForm;
+export default TradingForm;

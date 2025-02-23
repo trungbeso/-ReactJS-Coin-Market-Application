@@ -1,7 +1,10 @@
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactApexChart from 'react-apexcharts';
 import { Button } from '@/components/ui/button';
+import {useDispatch, useSelector} from "react-redux";
+import { fetMarketChart } from "@/State/Coin/Action"
+
 
 const timeSeries = [{
     keyword: "DIGITAL_CURRENCY_DAILY",
@@ -21,37 +24,21 @@ const timeSeries = [{
 },{
     keyword: "DIGITAL_CURRENCY_YEARLY",
     key: "Year Time Series",
-    label: "365 Day",
-    value: 365,
+    label: "1 Year",
+    value: 366,
 }]
 
-const StockChart = () => {
+const StockChart = ({coinId}) => {
+    const dispatch = useDispatch();
+    const {coin} = useSelector(store => store);
+    const [activeLabel, setActiveLabel] = useState(timeSeries[0]);
 
-    const [activeLabel, setActiveLabel] = useState("1 Day");
+    useEffect(() => {
+        dispatch(fetMarketChart({coinId, days:activeLabel.value, jwt:localStorage.getItem("jwt")}))
+    }, [dispatch, coinId, activeLabel])
 
     const series = [{
-        data:[ [1737446549875, 101885.476079607],
-            [1737450224058, 102336.848626247],
-        [1737453724125, 102574.846291047],
-        [1737457405375, 103051.920199296],
-        [1737460870436, 103680.996945755],
-        [1737464631018, 104383.967043879],
-        [1737468504633, 104476.607037582],
-        [1737471824899, 103459.591110279],
-        [1737475589188, 104071.020141236],
-        [1737479016864, 104858.631808125],
-        [1737482626637, 106132.122146877],
-        [1737486219258, 106789.70708043],
-        [1737489830545, 106969.681008106],
-        [1737493418206, 106189.882951434],
-        [1737497033206, 106817.77660527],
-        [1737500628136, 106011.735519903],
-        [1737504236285, 106193.341794117],
-        [1737508071434, 106194.217801489],
-        [1737511426442, 105769.314576742],
-        [1737515022084, 105588.500790401],
-        [1737518512618, 105676.939311479],
-        [1737522358507, 105715.690679462]]
+        data:coin.marketChart.data
     }];
 
     const options = {
@@ -105,8 +92,9 @@ const StockChart = () => {
             <div className="space-x-4 p-2 mt-1 ">
                 {timeSeries.map(((item) =>
                     <Button key={item.label}
-                            onClick={() => handleActiveLabel(item.label)}
-                            className={`text-white border cursor-pointer hover:bg-white hover:text-black ${activeLabel == item.label ? "text-red" : "text-white"}`}>
+                            variant={activeLabel.label == item.label ? "" : "outline"}
+                            onClick={() => handleActiveLabel(item)}
+                            className="text-white border cursor-pointer hover:bg-white hover:text-black">
                         {item.label}
                     </Button>))}
 

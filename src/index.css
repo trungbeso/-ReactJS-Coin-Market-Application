@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
 
 @layer base {
   :root {
@@ -71,3 +71,5 @@
     @apply dark bg-background text-foreground;
   }
 } */
+
+
