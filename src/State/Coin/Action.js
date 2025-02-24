@@ -30,7 +30,7 @@ export const getCoinList = (page) => async (dispatch) => {
 
     } catch (error) {
         console.log('error: ' + error)
-        dispatch({type: FETCH_COIN_LIST_FAILURE, payload: error.message})
+        dispatch({type: FETCH_COIN_LIST_FAILURE, error: error.message})
     }
 }
 
@@ -43,7 +43,7 @@ export const getTop50CoinList = () => async (dispatch) => {
         console.log("top 50", response.data)
     } catch (error) {
         console.log('error: ' + error)
-        dispatch({type: FETCH_TOP_50_COINS_FAILURE, payload: error.message})
+        dispatch({type: FETCH_TOP_50_COINS_FAILURE, error: error.message})
     }
 };
 
@@ -59,7 +59,7 @@ export const fetMarketChart = ({coinId, days, jwt}) => async (dispatch) => {
         console.log("coin chart ", response.data)
     } catch (error) {
         console.log('error: ' + error)
-        dispatch ({type: FETCH_MARKET_CHART_FAILURE, payload: error.message})
+        dispatch ({type: FETCH_MARKET_CHART_FAILURE, error: error.message})
     }
 };
 
@@ -71,7 +71,7 @@ export const fetchCoinById = (coinId) => async (dispatch) => {
         console.log("coin by id",response.data)
     } catch (error) {
         console.log('error: ' + error)
-        dispatch({type: FETCH_COIN_BY_ID_FAILURE, payload: error.message})
+        dispatch({type: FETCH_COIN_BY_ID_FAILURE, error: error.message})
     }
 };
 
@@ -87,7 +87,7 @@ export const fetchCoinDetails = ({coinId, jwt}) => async (dispatch) => {
         console.log("coin details ", response.data)
     } catch (error) {
         console.log("error: " + error)
-        dispatch({type: FETCH_COIN_DETAILS_FAILURE, payload: error.message})
+        dispatch({type: FETCH_COIN_DETAILS_FAILURE, error: error.message})
     }
 };
 
@@ -99,6 +99,6 @@ export const searchCoin = (keyword) => async (dispatch) => {
         console.log("search coin ",response.data)
     } catch (error) {
         console.log('error: ' + error)
-        dispatch({type: SEARCH_COIN_FAILURE, payload: error.message})
+        dispatch({type: SEARCH_COIN_FAILURE, error: error.message})
     }
 };

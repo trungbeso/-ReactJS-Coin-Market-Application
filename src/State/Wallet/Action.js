@@ -25,7 +25,7 @@ export const getUserWallet = (jwt) => async (dispatch) => {
         console.log("user wallets", response.data);
     }catch(error) {
         console.log(error);
-        dispatch({type: GET_USER_WALLET_FAILURE, payload: error.message})
+        dispatch({type: GET_USER_WALLET_FAILURE, error: error.message})
     }
 }
 
@@ -40,7 +40,7 @@ export const getWalletTransaction =({jwt}) => async (dispatch) => {
         dispatch({type: GET_WALLET_TRANSACTION_SUCCESS, payload: response.data});
     } catch (error) {
         console.log("error: " + error)
-        dispatch({type: GET_USER_WALLET_FAILURE, payload: error.message})
+        dispatch({type: GET_USER_WALLET_FAILURE, error: error.message})
     }
 }
 
@@ -60,7 +60,7 @@ export const depositMoney = ({jwt, orderId, paymentId, navigate}) => async (disp
         console.log(response.data)
     } catch (error) {
         console.log("error: ", error)
-        dispatch({type: DEPOSIT_MONEY_FAILURE, payload: error.message})
+        dispatch({type: DEPOSIT_MONEY_FAILURE, error: error.message})
     }
 }
 
@@ -78,7 +78,7 @@ export const paymentHandler = ({jwt, amount, paymentMethod}) => async (dispatch)
        // dispatch ({type: DEPOSIT_MONEY_SUCCESS, payload: response.data});
     } catch (error) {
         console.log("error: ", error)
-        dispatch({type: DEPOSIT_MONEY_FAILURE, payload: error.message})
+        dispatch({type: DEPOSIT_MONEY_FAILURE, error: error.message})
     }
 }
 
@@ -94,7 +94,7 @@ export const transferMoney = ({jwt, walletId, reqData}) => async (dispatch) => {
         console.log("transfer money sent", response.data)
     } catch (error) {
         console.log("error: ", error)
-        dispatch ({type: TRANSFER_MONEY_FAILURE, payload: error.message})
+        dispatch ({type: TRANSFER_MONEY_FAILURE, error: error.message})
     }
 }
 

@@ -24,7 +24,7 @@ export const register = (userData) => async (dispatch) => {
         userData.navigate("/sign-in");
     } catch (error) {
         console.log('error: ' + error)
-        dispatch({type: REGISTER_FAILURE, payload: error.message})
+        dispatch({type: REGISTER_FAILURE, error: error.message})
     }
 }
 
@@ -43,7 +43,7 @@ export const login = (userData) => async (dispatch) => {
         userData.navigate("/");
     } catch (error) {
         console.log('error: ' + error)
-        dispatch({type: LOGIN_FAILURE, payload: error.message})
+        dispatch({type: LOGIN_FAILURE, error: error.message})
     }
 }
 
@@ -62,7 +62,7 @@ export const getUser = (jwt) => async (dispatch) => {
         dispatch({type: GET_USER_SUCCESS, payload: user})
     } catch (error) {
         console.log('error: ' + error)
-        dispatch({type: GET_USER_FAILURE, payload: error.message})
+        dispatch({type: GET_USER_FAILURE, error: error.message})
     }
 }
 

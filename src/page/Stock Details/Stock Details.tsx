@@ -62,7 +62,7 @@ const StockDetails = () => {
 
                     <Dialog>
                         <DialogTrigger>
-                            <Button className="text-lg bg-white text-black cursor-pointer hover:bg-slate-200">Tread</Button>
+                            <Button className="text-lg bg-white text-black cursor-pointer hover:bg-slate-200">Trade</Button>
                         </DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
