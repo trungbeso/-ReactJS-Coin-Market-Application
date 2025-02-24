@@ -7,6 +7,8 @@ import {
     SheetClose,
 } from "../../components/ui/sheet"
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {logout} from "@/State/Auth/Action"
 
 
 const menu = [
@@ -18,23 +20,32 @@ const menu = [
     {name: "Payment Details", path: "/payment-details", icon: <LandmarkIcon className="h-6 w-6"/>},
     {name: "Withdrawal", path: "/withdrawal", icon: <CreditCardIcon className="h-6 w-6"/>},
     {name: "Profile", path: "/profile", icon: <PersonIcon className="h-6 w-6"/>},
-    {name: "Logout", path: "/profile", icon: <ExitIcon className="h-6 w-6"/>},
+    {name: "Logout", path: "/", icon: <ExitIcon className="h-6 w-6"/>},
 
 ]
 
 const Sidebar = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
+    const handleLogout= () => {
+        dispatch(logout())
+    }
 
     return (
-        <div className="mt-10 space-y-5 transform transition-all duration-300 ease-linear">
+        <div className="mt-10 space-y-5">
             {menu.map((item) => (
                 <div key={item.name}>
                     <SheetClose className="w-full ">
                         <Button
-                            onClick={() => navigate(item.path)}
+                            onClick={() => {
+                                navigate(item.path)
+                                if (item.name == "Logout") {
+                                    handleLogout()
+                                }
+                            }}
                             variant="outline"
-                            className="flex items-center gap-5 py-6 w-full hover:bg-gray-400">
+                            className="flex items-center gap-5 py-6 w-full hover:bg-amber-500 hover:font-bold hover:text-md">
                             <span className="w-8">{item.icon}</span>
                             <p>{item.name}</p>
                         </Button>

@@ -10,41 +10,41 @@ import {
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
 import {Button} from '@/components/ui/button';
 import {DragHandleHorizontalIcon, MagnifyingGlassIcon} from "@radix-ui/react-icons";
-import {Moon, Sun} from "lucide-react"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {useTheme} from "@/components/theme-provider"
+import {useSelector} from "react-redux";
+
 
 
 const Navbar = () => {
-    const {setTheme} = useTheme()
+
+    const {auth} = useSelector(store => store);
 
     return (
         <div
-            className="px-2 text-white py-1 border-b z-50 bg-black bg-opacity-0 sticky top-0 left-0 right-0 flex justify-between items-center">
+            className="sticky px-2 text-white py-1 border-b z-50 bg-black bg-opacity-0 top-0 left-0 right-0 flex justify-between items-center">
+
             <div className="flex items-center gap-3">
                 <Sheet>
                     <SheetTrigger>
-                        <Button variant="ghost" size="icon" className="rounded-full h-11 w-11">
+                        <Button variant="ghost" size="icon" className="rounded-full h-6 w-6 hover:bg-amber-500">
                             <DragHandleHorizontalIcon className="h-7 w-7"/>
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="left"
-                                  className="bg-gray-900 text-white w-75 border-r-0 flex flex-col justify-center">
+                                  className="bg-black text-white w-75 border-r-0 flex flex-col justify-center transform transition-all duration-300 ease-linear"
+                    >
                         <SheetHeader>
                             <SheetTitle>
-                                <div className="text-3xl flex justify-center items-center gap-1">
+                                <div className="flex justify-center items-center gap-3">
                                     <Avatar>
                                         <AvatarImage
-                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"/>
+                                            src="https://cryptologos.cc/logos/monero-xmr-logo.png"/>
                                     </Avatar>
-                                    <div className="font-semibold text-2xl">
-                                        <span className="text-orange-400">Coin</span>
-                                        <span> Market</span>
+                                    <div>
+                                        <h1 className="font-semibold text-xl text-white text-center font-serif">
+                                            Coin
+                                            <span className="bg-amber-500 rounded-md p-2">Market</span>
+
+                                        </h1>
                                     </div>
                                 </div>
                             </SheetTitle>
@@ -52,8 +52,9 @@ const Navbar = () => {
                         <Sidebar/>
                     </SheetContent>
                 </Sheet>
-                <p className="text-sm lg:text-base cursor-pointer">
-                    <span className="text-orange-400">Coin</span> Market
+                <p className="lg:text-base cursor-pointer text-white font-bold font-serif">
+                    Coin
+                    <span className="bg-amber-500 rounded-md p-1">Market</span>
                 </p>
                 <div className="p-0 ml-9 ">
                     <Button variant="outline" clasName=" flex items-center gap-3">
@@ -64,8 +65,12 @@ const Navbar = () => {
             </div>
 
             <div>
-                <Avatar>
-                    <AvatarFallback>T </AvatarFallback>
+                <Avatar className="bg-amber-500 rounded-full p-1 -z-20">
+
+
+                    <AvatarFallback>
+                        {auth.user?.fullName[0].toUpperCase()}
+                    </AvatarFallback>
                 </Avatar>
             </div>
         </div>

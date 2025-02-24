@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Table,
     TableBody,
@@ -8,9 +8,18 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {useDispatch, useSelector} from "react-redux";
+import {getWithdrawalHistory} from "@/State/Withdrawal/Action"
 
 
 const Withdrawal = () => {
+    const dispatch = useDispatch();
+    const {wallet, withdrawal} = useSelector(store=>store);
+
+    useEffect(() => {
+        dispatch(getWithdrawalHistory(localStorage.getItem('jwt')))
+    },[]);
+
     return (
         <dic className="p-5 lg:p-20">
 
@@ -26,11 +35,11 @@ const Withdrawal = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) => (<TableRow key={index}>
-                            <TableCell>July 2,2016</TableCell>
-                            <TableCell>SHIBA</TableCell>
-                            <TableCell className="">$250.00</TableCell>
-                            <TableCell className="text-right">$250.00</TableCell>
+                        {withdrawal?.history?.map((item, index) => (<TableRow key={index}>
+                            <TableCell>{item.date.toString()}</TableCell>
+                            <TableCell>Banking</TableCell>
+                            <TableCell className="">${item.amount}</TableCell>
+                            <TableCell className="text-right">{item.status}</TableCell>
 
                         </TableRow>))}
 

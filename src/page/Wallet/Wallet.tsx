@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Card,
     CardContent,
@@ -21,10 +21,53 @@ import TopUpForm from "./TopUpForm.jsx";
 import WithdrawalForm from "./WithdrawalForm";
 import TransferForm from "./TransferForm";
 import {Avatar, AvatarFallback} from "@radix-ui/react-avatar";
+import {useDispatch, useSelector} from "react-redux";
+import {getUserWallet} from "@/State/Wallet/Action"
+import {depositMoney} from "@/State/Wallet/Action"
+import {getWalletTransaction} from "@/State/Wallet/Action"
+import {useLocation, useNavigate} from "react-router-dom";
 
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search)
+}
 
 //rsc
 const Wallet = () => {
+
+    const dispatch = useDispatch();
+    const {wallet} = useSelector(store=>store);
+    const query = useQuery();
+    const orderId = query.get("orderId");
+    const paymentId = query.get("paymentId");
+    const razorpayPaymentId = query.get("razorpay_payment_id")
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+       handleFetchUserWallet();
+        handleFetchWalletTransaction();
+    }, []);
+
+    useEffect(() => {
+        if (orderId) {
+            dispatch(depositMoney({
+                jwt: localStorage.getItem("jwt"),
+                orderId,
+                paymentId:  paymentId || razorpayPaymentId,
+                navigate
+            }))
+        }
+    }, [orderId, paymentId, razorpayPaymentId]);
+
+    const handleFetchUserWallet = () => {
+        dispatch(getUserWallet(localStorage.getItem("jwt")))
+    }
+
+    const handleFetchWalletTransaction = () => {
+        dispatch(getWalletTransaction({jwt: localStorage.getItem("jwt")}))
+    }
+
     return (
         <div className="flex flex-col items-center">
             <div className="pt-10 w-full lg:w-[60%]">
@@ -37,21 +80,21 @@ const Wallet = () => {
                                     <CardTitle className="text-2xl">My Wallet</CardTitle>
                                     <div className="flex items-center gap-2">
                                         <p className="text-gray-200 text-sm">
-                                            #123123
+                                            #{wallet.userWallet?.id}
                                         </p>
                                         <CopyIcon size={15} className="cursor-pointer hover:text-slate-300"/>
                                     </div>
                                 </div>
                             </div>
                             <div>
-                                <ReloadIcon className="w-6 h-6 cursor-pointer hover:text-slate-300"/>
+                                <ReloadIcon onClick={handleFetchUserWallet} className="w-6 h-6 cursor-pointer hover:text-slate-300"/>
                             </div>
                         </div>
                     </CardHeader>
                     <CardContent className="pb-9">
                         <div className="flex items-center">
                             <DollarSign/>
-                            <span className="text-2xl font-semibold">3458.555</span>
+                            <span className="text-2xl font-semibold">{wallet.userWallet.balance}</span>
                         </div>
 
                         <div className="flex gap-7 mt-5">
@@ -120,23 +163,23 @@ const Wallet = () => {
 
                     <div className="space-y-5">
 
-                        {[1,1,1,1,1,1,1,1,1,1].map((item, i) => (<div key={i}>
+                        {wallet.transaction.map((item, i) => (<div key={i}>
                             <Card className=" py-2 px-5 border-gray-500 flex justify-between items-center">
                                 <div className="flex items-center gap-5">
-                                    <Avatar>
+                                    <Avatar onClick={handleFetchWalletTransaction}>
                                         <AvatarFallback>
                                             <ShuffleIcon/>
                                         </AvatarFallback>
                                     </Avatar>
 
                                     <div className="space-y-1">
-                                        <h1>Buy Asset</h1>
-                                        <p className="text-sm text-gray-500">2022-12-2</p>
+                                        <h1>{item.type || item.purpose}</h1>
+                                        <p className="text-sm text-gray-500">{item.date}</p>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <p className="text-green-500">$999.00</p>
+                                    <p className="text-green-500">${item.amount}</p>
                                 </div>
                             </Card>
                         </div>))}

@@ -1,18 +1,40 @@
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
 import {Button} from "@/components/ui/button"
-import React from "react";
+import React, {useEffect} from "react";
 import AssetTable from "./AssetTable";
 import StockChart from "./StockChart";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import { DotIcon, MessageCircle} from "lucide-react";
 import {Cross1Icon} from "@radix-ui/react-icons";
-
 import { Input } from "@/components/ui/input"
+import {useDispatch, useSelector} from "react-redux";
+import {getCoinList} from "@/State/Coin/Action.js"
+import {getTop50CoinList} from "@/State/Coin/Action.js"
+
 
 
 const Home = () => {
     const [category, setCategory] = React.useState("all");
     const [inputValue, setInputValue] = React.useState("");
     const [isBotReleased, setIsBotReleased] = React.useState(false);
+    const {coin} = useSelector(store => store);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCoinList(1))
+    }, [])
+
+    useEffect(() => {
+        dispatch(getTop50CoinList())
+    }, [category])
 
 
     const handleCategory = (value) => {
@@ -38,10 +60,12 @@ const Home = () => {
     return (
         <div className="relative">
             <div className="lg:flex ">
-                <div className="lg:w-1/2 lg:border-b">
+                <div className="lg:w-1/2">
                     <div
-                        className="p-3 flex items-center gap-4  *:hover:bg-white *:hover:text-black *:selection:bg-white">
-                        <Button onClick={() => handleCategory("all")} className="rounded-full"
+                        className="p-3 flex items-center gap-4 ">
+                        <Button onClick={() => handleCategory("all")} className="rounded-full
+
+                        "
                                 variant={category == "all" ? "default" : "outline"}>All</Button>
                         <Button onClick={() => handleCategory("top50")} className="rounded-full"
                                 variant={category == "top50" ? "default" : "outline"}>Top 50</Button>
@@ -50,33 +74,55 @@ const Home = () => {
                         <Button onClick={() => handleCategory("topLosers")} className="rounded-full"
                                 variant={category == "topLosers" ? "default" : "outline"}>Top Losers</Button>
                     </div>
-                    <AssetTable/>
+                    <AssetTable coin={category == "all" ? coin.coinList : coin.top50} category={category}/>
+                    <div>
+                        <Pagination>
+                            <PaginationContent>
+                                <PaginationItem>
+                                    <PaginationPrevious href="#"/>
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationLink href="#">1</PaginationLink>
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationEllipsis/>
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationNext href="#"/>
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+
+                    </div>
                 </div>
                 <div className="hidden lg:block lg:w-1/2">
-                    <StockChart/>
-                    <div className="flex gap-3 items-center py-7 pl-4">
-                        <div>
-                            <Avatar>
-                                <AvatarImage
-                                    src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"}
-                                    width={50} height={50}/>
-                            </Avatar>
-                        </div>
-                        <div>
-                            <div className=" items-center gap-2">
-                                <p>DOGE</p>
-                                <p className="text-xl font-bold">1622</p>
+                    <StockChart coinId={"bitcoin"}/>
+                    {coin.coinList.map((item) => (
+                        <div className="flex gap-3 items-center py-7 pl-4">
+                            <div>
+                                <Avatar>
+                                    <AvatarImage
+                                        src={item.image}
+                                        width={50} height={50}/>
+                                </Avatar>
+                            </div>
+                            <div>
+                                <div className=" items-center gap-2">
+                                    <p>{item.name}</p>
+                                    <p className="text-xl font-bold">${item.current_price}</p>
+                                </div>
+                            </div>
+                            <DotIcon className="text-gray-400"/>
+                            <div className=" items-end gap-2">
+                                <p className="text-gray-400">{item.symbol.toUpperCase()}</p>
+                                <p>
+                                    <span>{item.market_cap}</span>
+                                    <span className="text-green-600">({item.price_change_percentage_24h}%)</span>
+                                </p>
                             </div>
                         </div>
-                        <DotIcon className="text-gray-400"/>
-                        <div className=" items-end gap-2">
-                            <p className="text-gray-400">Doge Coin</p>
-                            <p>
-                                <span className="text-red-600">-123124312412413123</span>
-                                <span>(-0.2526982%)</span>
-                            </p>
-                        </div>
-                    </div>
+                    ))}
+
                 </div>
             </div>
 

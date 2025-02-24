@@ -3,25 +3,30 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import {DotFilledIcon} from "@radix-ui/react-icons";
+import {CheckboxIcon, DotFilledIcon} from "@radix-ui/react-icons";
+import {useDispatch} from "react-redux";
+import {paymentHandler} from "@/State/Wallet/Action"
+import {CheckIcon} from "lucide-react";
 
 
 
 const TopUpForm = () => {
     const [paymentMethod, setPaymentMethod] = React.useState('RAZORPAY')
     const [amount, setAmount] = React.useState("");
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setAmount(e.target.value);
     }
 
-    const handlePaymentMethodChange = (e) => {
-        setAmount(e.target.value);
+    const handlePaymentMethodChange = (selectedMethod) => {
+        setPaymentMethod(selectedMethod);
     }
 
 
     const handleSubmit = () => {
         console.log(amount, paymentMethod)
+        dispatch(paymentHandler({jwt: localStorage.getItem('jwt'), paymentMethod, amount}))
     }
     return (
         <div className="pt-6 space-y-5">
@@ -44,8 +49,8 @@ const TopUpForm = () => {
                     <div className="flex items-center space-x-2  p-3 :bg-white">
                         <RadioGroupItem
                             onClick={() => handlePaymentMethodChange("paymentMethod")}
-                        icon={DotFilledIcon}
-                        className="h-9 w-9"
+                        icon={CheckboxIcon}
+                        className="h-9 w-9 cursor-pointer"
                         value="RAZORPAY"
                         id="r1"/>
                         <Label htmlFor="r1">
@@ -58,7 +63,7 @@ const TopUpForm = () => {
                     <div className="flex items-center space-x-2  p-3 :bg-white">
                         <RadioGroupItem
                         icon={DotFilledIcon}
-                        className="h-9 w-9"
+                        className="h-9 w-9 cursor-pointer"
                         value="STRIPE"
                         id="r2"/>
                         <Label htmlFor="r2">
@@ -72,7 +77,7 @@ const TopUpForm = () => {
                     <div className="flex items-center space-x-2  p-3 :bg-white">
                         <RadioGroupItem
                         icon={DotFilledIcon}
-                        className="h-9 w-9"
+                        className="h-9 w-9 cursor-pointer"
                         value="PAYPAL"
                         id="r3"/>
                         <Label htmlFor="r3">
