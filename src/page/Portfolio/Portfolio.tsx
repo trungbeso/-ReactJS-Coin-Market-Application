@@ -10,14 +10,14 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import {useDispatch, useSelector} from "react-redux";
-import {getUserAsset} from "@/State/Asset/Action"
+import {getUserAssets} from "@/State/Asset/Action"
 
 const Portfolio = () => {
     const{asset} = useSelector(store=>store);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUserAsset(localStorage.getItem("jwt")))
+        dispatch(getUserAssets(localStorage.getItem("jwt")))
     }, []);
 
     return (

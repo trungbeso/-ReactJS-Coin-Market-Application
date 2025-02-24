@@ -1,5 +1,5 @@
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Table,
     TableBody,
@@ -10,12 +10,21 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import {Button} from "@/components/ui/button"
-
+import { getUserWatchList } from "@/State/Watchlist/Action"
 import {BookmarkFilledIcon} from "@radix-ui/react-icons";
+import {useDispatch, useSelector} from "react-redux";
+import { addItemToWatchlist } from "@/State/Watchlist/Action"
 
 const WatchList = () => {
-    function handleRemoveToWatchList(value) {
-        console.log(value)
+    const dispatch = useDispatch();
+    const {watchlist} = useSelector(store=>store)
+
+    useEffect(() => {
+        dispatch(getUserWatchList(localStorage.getItem('jwt')))
+    }, []);
+
+    const handleRemoveToWatchList= (value) => {
+        dispatch(addItemToWatchlist({coinId: value, jwt: localStorage.getItem("jwt")}))
     }
 
     return (
@@ -36,23 +45,24 @@ const WatchList = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {[1, 1, 1, 1, 1, 1, 1, 1, 1].map((item,index) => (<TableRow key={index}>
+                        {watchlist.items.map((item,index) => (<TableRow key={index}>
                             <TableCell className="font-medium flex items-center gap-2 w-30">
                                 <Avatar className="-z-50">
-                                    <AvatarImage src="https://s2.coinmarketcap.com/static/img/coins/200x200/5994.png"
+                                    <AvatarImage src={item.image}
                                     />
                                 </Avatar>
-                                <span>Coin name</span>
+                                <span>{item.name}</span>
                             </TableCell>
 
-                            <TableCell>SHIBA</TableCell>
-                            <TableCell>123123123</TableCell>
-                            <TableCell>124.123.12.31.24.41.24.11</TableCell>
-                            <TableCell>Credit Card</TableCell>
-                            <TableCell className="">$250.00</TableCell>
+                            <TableCell>{item.symbol.toUpperCase()}</TableCell>
+                            <TableCell>{item.total_volume}</TableCell>
+                            <TableCell>{item.market_cap}</TableCell>
+                            <TableCell>{item.price_change_percentage_24h}</TableCell>
+                            <TableCell className="">${item.current_price}</TableCell>
                             <TableCell className="text-right">
                                 <Button variant="ghost"
                                     onClick={() => handleRemoveToWatchList(item.id)} size="icon" className="h-10 w-10">
+
                                     <BookmarkFilledIcon className="w-10 h-10" />
                                 </Button>
                             </TableCell>

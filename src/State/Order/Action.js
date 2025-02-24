@@ -40,6 +40,7 @@ export const getOrderById = (jwt, orderId) => async(dispatch) => {
     }
 }
 
+//activity
 export const getAllOrdersForUser = ({jwt, orderType, assetSymbol}) => async(dispatch) => {
     dispatch ({type: GET_ALL_ORDERS_REQUEST});
     try {

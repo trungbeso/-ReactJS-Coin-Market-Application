@@ -97,29 +97,32 @@ const Home = () => {
                 </div>
                 <div className="hidden lg:block lg:w-1/2">
                     <StockChart coinId={"bitcoin"}/>
-                    <div className="flex gap-3 items-center py-7 pl-4">
-                        <div>
-                            <Avatar>
-                                <AvatarImage
-                                    src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"}
-                                    width={50} height={50}/>
-                            </Avatar>
-                        </div>
-                        <div>
-                            <div className=" items-center gap-2">
-                                <p>DOGE</p>
-                                <p className="text-xl font-bold">1622</p>
+                    {coin.coinList.map((item) => (
+                        <div className="flex gap-3 items-center py-7 pl-4">
+                            <div>
+                                <Avatar>
+                                    <AvatarImage
+                                        src={item.image}
+                                        width={50} height={50}/>
+                                </Avatar>
+                            </div>
+                            <div>
+                                <div className=" items-center gap-2">
+                                    <p>{item.name}</p>
+                                    <p className="text-xl font-bold">${item.current_price}</p>
+                                </div>
+                            </div>
+                            <DotIcon className="text-gray-400"/>
+                            <div className=" items-end gap-2">
+                                <p className="text-gray-400">{item.symbol.toUpperCase()}</p>
+                                <p>
+                                    <span>{item.market_cap}</span>
+                                    <span className="text-green-600">({item.price_change_percentage_24h}%)</span>
+                                </p>
                             </div>
                         </div>
-                        <DotIcon className="text-gray-400"/>
-                        <div className=" items-end gap-2">
-                            <p className="text-gray-400">Doge Coin</p>
-                            <p>
-                                <span className="text-red-600">-123124312412413123</span>
-                                <span>(-0.2526982%)</span>
-                            </p>
-                        </div>
-                    </div>
+                    ))}
+
                 </div>
             </div>
 
