@@ -11,6 +11,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
 import {Button} from '@/components/ui/button';
 import {DragHandleHorizontalIcon, MagnifyingGlassIcon} from "@radix-ui/react-icons";
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
 
 
@@ -19,10 +20,9 @@ const Navbar = () => {
     const {auth} = useSelector(store => store);
 
     return (
-        <div
-            className="sticky px-2 text-white py-1 border-b z-50 bg-black bg-opacity-0 top-0 left-0 right-0 flex justify-between items-center">
+        <div className="sticky px-2 text-white py-3 border-b z-50 bg-black bg-opacity-0 top-0 left-0 right-0 flex justify-between items-center">
 
-            <div className="flex items-center gap-3">
+            <div className="flex justify-between items-center gap-3">
                 <Sheet>
                     <SheetTrigger>
                         <Button variant="ghost" size="icon" className="rounded-full h-6 w-6 hover:bg-amber-500">
@@ -39,25 +39,28 @@ const Navbar = () => {
                                         <AvatarImage
                                             src="https://cryptologos.cc/logos/monero-xmr-logo.png"/>
                                     </Avatar>
-                                    <div>
+                                    <Link to="/">
                                         <h1 className="font-semibold text-xl text-white text-center font-serif">
                                             Coin
                                             <span className="bg-amber-500 rounded-md p-2">Market</span>
 
                                         </h1>
-                                    </div>
+                                    </Link>
                                 </div>
                             </SheetTitle>
                         </SheetHeader>
                         <Sidebar/>
                     </SheetContent>
                 </Sheet>
-                <p className="lg:text-base cursor-pointer text-white font-bold font-serif">
-                    Coin
-                    <span className="bg-amber-500 rounded-md p-1">Market</span>
-                </p>
-                <div className="p-0 ml-9 ">
-                    <Button variant="outline" clasName=" flex items-center gap-3">
+                <div>
+                    <Link to="/" className="lg:text-base cursor-pointer text-white font-bold font-serif">
+                        Coin
+                        <span className="bg-amber-500 rounded-md p-1">Market</span>
+                    </Link>
+                </div>
+
+                <div className="p-0 ml-9 bg-white text-black rounded-lg hover:bg-slate-200 cursor-pointer">
+                    <Button clasName=" flex items-center gap-3 border cursor-pointer">
                         <MagnifyingGlassIcon/>
                         <span>Search</span>
                     </Button>
@@ -65,9 +68,7 @@ const Navbar = () => {
             </div>
 
             <div>
-                <Avatar className="bg-amber-500 rounded-full p-1 -z-20">
-
-
+                <Avatar className="rounded-full">
                     <AvatarFallback>
                         {auth.user?.fullName[0].toUpperCase()}
                     </AvatarFallback>

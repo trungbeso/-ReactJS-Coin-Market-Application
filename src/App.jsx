@@ -18,6 +18,7 @@ import React, {useEffect} from "react";
 import Auth from "@/page/Auth/Auth.js";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "@/State/Auth/Action.js";
+import Footer from "@/components/Footer.js";
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
                     <Route path="/search" element={<SearchCoin/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
+                <Footer/>
             </div> : <Auth/>}
         </>
     )

@@ -5,6 +5,7 @@ import App from './App.jsx'
 import {BrowserRouter, Routes} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "@/State/Store.js";
+import {AuthProvider} from "@/page/Context/auth.context.js";
 
 
 document.documentElement.classList.add("bg-black");
@@ -15,10 +16,12 @@ document.documentElement.classList.add("ease-in-out");
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <BrowserRouter>
-          <Provider store={store}>
-              <App />
-          </Provider>
-      </BrowserRouter>
+      <AuthProvider>
+          <BrowserRouter>
+              <Provider store={store}>
+                  <App />
+              </Provider>
+          </BrowserRouter>
+      </AuthProvider>
   </StrictMode>,
 )
