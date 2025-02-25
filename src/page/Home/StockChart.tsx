@@ -85,16 +85,18 @@ const StockChart = ({coinId}) => {
 
     const handleActiveLabel = (value) => {
         setActiveLabel(value);
+        console.log(activeLabel.label)
     }
 
     return (
         <div>
-            <div className="space-x-4 p-2 mt-1 ">
+            <div className="space-x-4 p-2 mt-1">
                 {timeSeries.map(((item) =>
                     <Button key={item.label}
-                            variant={activeLabel.label == item.label ? "" : "outline"}
                             onClick={() => handleActiveLabel(item)}
-                            className="text-white border cursor-pointer hover:bg-white hover:text-black">
+                            className={activeLabel.label === item.label
+                                ? "text-black pointer-events-none bg-slate-200"
+                                : "text-white border cursor-pointer hover:bg-white hover:text-black"}>
                         {item.label}
                     </Button>))}
 
