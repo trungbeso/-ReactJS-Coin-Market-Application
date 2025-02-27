@@ -20,16 +20,16 @@ const AssetTable = ({coin, category}) => {
 
     return (
         <>
-            <Table>
+            <Table className="*:text-center">
                 <ScrollArea className={`${category == "all" ? "h-[78vh]" : "h-[78vh]"}`}>
                     <TableHeader>
-                        <TableRow>
+                        <TableRow className="*:text-center">
                             <TableHead className="w-[100px]">Coin</TableHead>
                             <TableHead>SYMBOL</TableHead>
                             <TableHead>VOLUME</TableHead>
                             <TableHead>MARKET CAP</TableHead>
                             <TableHead>24h</TableHead>
-                            <TableHead className="text-right">PRICE</TableHead>
+                            <TableHead >PRICE</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody className="p-2 *:hover:bg-slate-900">
@@ -45,8 +45,10 @@ const AssetTable = ({coin, category}) => {
                             <TableCell>{item.symbol.toUpperCase()}</TableCell>
                             <TableCell>{item.total_volume}</TableCell>
                             <TableCell>{item.market_cap}</TableCell>
-                            <TableCell>{item.price_change_percentage_24h}</TableCell>
-                            <TableCell className="text-right">${item.current_price}</TableCell>
+                            <TableCell className={item.price_change_percentage_24h < 0 ? "text-red-500" : "text-green-500"}>
+                                {item.price_change_percentage_24h}
+                            </TableCell>
+                            <TableCell >${item.current_price}</TableCell>
                         </TableRow>))}
                     </TableBody>
                 </ScrollArea>
