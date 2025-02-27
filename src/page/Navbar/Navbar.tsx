@@ -69,7 +69,7 @@ const Navbar = () => {
 
             <div>
                 <Avatar className="rounded-full">
-                    <AvatarFallback>
+                    <AvatarFallback className="bg-amber-500 text-white pointer-events-none p-1">
                         {auth.user?.fullName[0].toUpperCase()}
                     </AvatarFallback>
                 </Avatar>

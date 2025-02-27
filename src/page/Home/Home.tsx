@@ -68,7 +68,7 @@ const Home = () => {
         const coinKeywords = ["price", "market cap", "crypto", "coin", "the current", "market cap rank", "value"];
         const isCoinRelated = coinKeywords.some(keyword => prompt.toLowerCase().includes(keyword));
 
-        const url = isCoinRelated ? "http://localhost:5454/ai/chat" : "http://localhost:5454/ai/chat/simple";
+        const url =  "http://localhost:5454/ai/chat/simple";
         const response = await axios.post(url, { prompt });
 
         return response.data.message || response.data;
@@ -136,12 +136,12 @@ const Home = () => {
                 {isBotReleased && (
                     <div className="rounded-md w-[25rem] md:w[25rem] lg:w[25rem] h-[70vh] bg-slate-900">
                         <div className="flex justify-between items-center font-semibold border-b border-gray-700 px-5 h-[12%] bg-gray-800 rounded-tl-lg rounded-tr-lg">
-                            <p>Gemini mini-1.5-flash</p>
+                            <p>Gemini-1.5-pro</p>
                             <Button onClick={handleBotRelease} variant="ghost" size="icon" className="cursor-pointer hover:border">
                                 <Cross1Icon />
                             </Button>
                         </div>
-                        <div className="h-[75%] flex flex-col overflow-y-auto gap-5 px-5 py-2 scroll-container">
+                        <div className="h-[75%] flex flex-col gap-5 px-5 py-2 scroll-container overflow-y-scroll ">
                             {chatMessages.map((message, index) => (
                                 <div key={index} className={`${message.isUser ? "self-end" : "self-start"} pb-5 w-auto`}>
                                     <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
